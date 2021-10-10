@@ -11,6 +11,8 @@ The d code was ported from [the original C++ implementation](https://github.com/
 ## How to build
 You need any d compiler and dub (the D language's official package manager) which is usually shipped with the compilers.
 
+cd into the project root, and type:
+
 for command line executable:
 ```
 dub build --config=cli
