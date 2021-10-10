@@ -8,7 +8,7 @@ The d code was ported from [the original C++ implementation](https://github.com/
 ## Dependencies
  * only the d standard library phobos.
 
-## How to buiild
+## How to build
 You need any d compiler and dub (the D language's official package manager) which is usually shipped with the compilers.
 
 for command line executable:
