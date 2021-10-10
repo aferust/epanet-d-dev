@@ -44,11 +44,11 @@ int rt_init();
 int rt_term();
 
 int main() {
-   rt_init(); // initialize the druntime
+   rt_init(); // initialize the d runtime
    
    EN_runEpanet("net1.inp", "out1", "out2");
    
-   rt_term(); // terminate druntime
+   rt_term(); // terminate the d runtime
 
    printf("done!");
    return 0;
