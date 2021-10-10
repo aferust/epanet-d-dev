@@ -20,3 +20,10 @@ for dynamic library:
 ```
 dub build --config=dynamicLibrary
 ```
+
+for static library:
+```
+dub build
+```
+
+To compile release versions, append ``` -b release``` to the end of the dub command.
