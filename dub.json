@@ -1,11 +1,12 @@
 {
-	"authors": [
-		"OpenWaterAnalytics contributors"
-	],
-	"copyright": "Copyright © 2021, OpenWaterAnalytics",
-	"description": "This is a collaborative project to develop a new version of the EPANET computational engine for analyzing water distribution systems.",
-	"license": "The MIT License (MIT)",
-	"name": "epanet3",
+    "authors": [
+        "OpenWaterAnalytics contributors"
+    ],
+    "copyright": "Copyright © 2021, OpenWaterAnalytics",
+    "description": "This is a collaborative project to develop a new version of the EPANET computational engine for analyzing water distribution systems.",
+    "license": "The MIT License (MIT)",
+    "name": "epanet3",
+    "version": "0.0.1",
     "configurations": [
         {
             "name": "default",
