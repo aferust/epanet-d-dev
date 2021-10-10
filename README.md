@@ -31,7 +31,7 @@ dub build
 To compile release versions, append ``` -b release``` to the end of the dub command.
 
 ## Using C interface
-Druntime and Phobos must be explicitly linked. For instance in a Windows machine below C code must be compiled with:
+The D runtime and Phobos must be explicitly linked. For instance in a Windows machine below C code must be compiled with:
 ```cl phobos2-ldc.lib druntime-ldc.lib epanet3.lib main.c```
 
 ```C
