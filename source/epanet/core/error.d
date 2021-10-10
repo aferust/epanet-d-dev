@@ -12,17 +12,14 @@ module epanet.core.error;
 
 class ENerror: Exception {
     int code;
-    string msg;
 
     this(){
         code = 0;
-        msg = "";
-        super(msg, __FILE__, __LINE__);
+        this(msg, __FILE__, __LINE__);
     }
 
     this(string msg, string file = __FILE__, size_t line = __LINE__){
         code = 0;
-        msg = "";
         super(msg, file, line);
     }
 }
@@ -51,7 +48,7 @@ class SystemError : ENerror
         SYSTEM_ERROR_LIMIT
     }
 
-    this(int type){
+    this(int type, string file = __FILE__, size_t line = __LINE__){
 
         if ( type >= 0 && type < SYSTEM_ERROR_LIMIT ){
             code = SystemErrorCodes[type];
@@ -62,7 +59,7 @@ class SystemError : ENerror
     }
 }
 
-static const int[] SystemErrorCodes =
+static const int[12] SystemErrorCodes =
 [
     101, //OUT_OF_MEMORY,
     102, //NO_NETWORK_DATA,
@@ -81,7 +78,7 @@ static const int[] SystemErrorCodes =
     112  //SOLVER_NOT_INITIALIZED,
 ];
 
-static string[] SystemErrorMsgs =
+static string[12] SystemErrorMsgs =
 [
     "\n\n*** SYSTEM ERROR 101: OUT OF MEMORY",
     "\n\n*** SYSTEM ERROR 102: NO NETWORK DATA TO ANALYZE",
@@ -97,7 +94,7 @@ static string[] SystemErrorMsgs =
     "\n\n*** SYSTEM ERROR 112: SOLVER NOT INITIALIZED"
 ];
 
-static const int[] InputErrorCodes =
+static const int[9] InputErrorCodes =
 [
     200, //ERRORS_IN_INPUT_DATA
     201, //CANNOT_CREATE_OBJECT
@@ -110,7 +107,7 @@ static const int[] InputErrorCodes =
     208  //UNSPECIFIED
 ];
 
-static immutable string[] InputErrorMsgs =
+static immutable string[9] InputErrorMsgs =
 [
     "\n\n*** INPUT ERROR 200: one or more errors in network input data.",
     "\n\n*** INPUT ERROR 201: cannot create object ",
@@ -123,7 +120,7 @@ static immutable string[] InputErrorMsgs =
     "\n\n*** UNSPECIFIED INPUT ERROR "
 ];
 
-static const int[] NetworkErrorCodes =
+static const int[9] NetworkErrorCodes =
 [
     220, //ILLEGAL_VALVE_CONNECTION
     223, //TOO_FEW_NODES
@@ -136,7 +133,7 @@ static const int[] NetworkErrorCodes =
     233  //UNCONNECTED_NODE
 ];
 
-static immutable string[] NetworkErrorMsgs =
+static immutable string[9] NetworkErrorMsgs =
 [
     "\n\n NETWORK ERROR 220: illegal connection for valve ",
     "\n\n NETWORK ERROR 223: too few nodes in network.",
@@ -150,7 +147,7 @@ static immutable string[] NetworkErrorMsgs =
 ];
 
 
-static const int[] FileErrorCodes =
+static const int[10] FileErrorCodes =
 [
     301, // DUPLICATE_FILE_NAMES
     302, // CANNOT_OPEN_INPUT_FILE
@@ -164,7 +161,7 @@ static const int[] FileErrorCodes =
     310  // NO_RESULTS_SAVED_TO_REPORT
 ];
 
-static immutable string[] FileErrorMsgs =
+static immutable string[10] FileErrorMsgs =
 [
     "\n\n*** FILE ERROR 301: DUPLICATE FILE NAMES",
     "\n\n*** FILE ERROR 302: CANNOT OPEN INPUT FILE",
@@ -198,11 +195,11 @@ class InputError : ENerror
         INPUT_ERROR_LIMIT
     }
 
-    this(int type, string token){
-        super();
+    this(int type, string token, string file = __FILE__, size_t line = __LINE__){
         if (type < 0 || type >= UNSPECIFIED) type = UNSPECIFIED;
         code = InputErrorCodes[type];
         msg = InputErrorMsgs[type] ~ token;
+        super(msg, file, line);
     }
 }
 
@@ -225,13 +222,13 @@ class NetworkError : ENerror
         NETWORK_ERROR_LIMIT
     }
 
-    this(int type, string id){
-        super();
+    this(int type, string id, string file = __FILE__, size_t line = __LINE__){
         if (type >= 0 && type < NETWORK_ERROR_LIMIT)
         {
             code = NetworkErrorCodes[type];
             msg = NetworkErrorMsgs[type] ~ id;
         }
+        super(msg, file, line);
     }
 }
 
@@ -255,12 +252,12 @@ class FileError : ENerror
         FILE_ERROR_LIMIT
     }
 
-    this(int type){
-        super();
+    this(int type, string file = __FILE__, size_t line = __LINE__){
         if ( type >= 0 && type < FILE_ERROR_LIMIT )
         {
             code = FileErrorCodes[type];
             msg =  FileErrorMsgs[type];
         }
+        super(msg, file, line);
     }
 }
