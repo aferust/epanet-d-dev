@@ -29,3 +29,33 @@ dub build
 ```
 
 To compile release versions, append ``` -b release``` to the end of the dub command.
+
+## Using C interface
+Druntime and Phobos must be explicitly linked.
+For instance in a Windows machine:
+
+Below C code must be compiled with:
+```cl phobos2-ldc.lib druntime-ldc.lib epanet3.lib main.c```
+
+```C
+// main.c
+#include <stdio.h>
+
+#include "epanet3.h"
+
+int rt_init();
+int rt_term();
+
+int main() {
+   rt_init(); // initialize the druntime
+   
+   EN_runEpanet("net1.inp", "out1", "out2");
+   
+   rt_term(); // terminate druntime
+
+   printf("done!");
+   return 0;
+}
+```
+
+TODO: automate the rt_init and rt_term calls in the C interface
