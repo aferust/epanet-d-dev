@@ -40,19 +40,11 @@ The D runtime and Phobos must be explicitly linked. For instance in a Windows ma
 
 #include "epanet3.h"
 
-int rt_init();
-int rt_term();
-
 int main() {
-   rt_init(); // initialize the d runtime
    
    EN_runEpanet("net1.inp", "out1", "out2");
-   
-   rt_term(); // terminate the d runtime
 
    printf("done!");
    return 0;
 }
 ```
-
-TODO: automate the rt_init and rt_term calls in the C interface

@@ -24,6 +24,27 @@ alias EN_Project = void*;
 
 DataManager dm;
 
+private {
+    import core.runtime;
+    import core.atomic;
+
+    shared size_t initCount;
+
+    void initRT(){
+        if(!atomicLoad!(MemoryOrder.acq)(initCount)){
+            Runtime.initialize();
+            atomicOp!"+="(initCount, 1);
+        }
+    }
+
+    void termRT(){
+        if(atomicLoad!(MemoryOrder.acq)(initCount) > 0){
+            Runtime.terminate();
+            atomicOp!"-="(initCount, 1);
+        }
+    }
+}
+
 int EN_getVersion(int* enversion)
 {
     *enversion = VERSION;
@@ -34,6 +55,9 @@ int EN_getVersion(int* enversion)
 
 int EN_runEpanet(const(char)* inpFile, const(char)* rptFile, const(char)* outFile)
 {
+    initRT();
+    scope(exit) termRT();
+
     "\n... EPANET Version 3.0\n".write;
 
     // ... declare a Project variable and an error indicator
@@ -105,6 +129,9 @@ int EN_runEpanet(const(char)* inpFile, const(char)* rptFile, const(char)* outFil
          "\n\n    There were errors. See report file for details.\n".write;
         return err;
     }
+
+    p.destroy();
+
     return 0;
 }
 
@@ -112,6 +139,7 @@ int EN_runEpanet(const(char)* inpFile, const(char)* rptFile, const(char)* outFil
 
 EN_Project EN_createProject()
 {
+    initRT();
     Project p = new Project();
     return cast(EN_Project *)p;
 }
@@ -119,7 +147,8 @@ EN_Project EN_createProject()
 //-----------------------------------------------------------------------------
 
 int EN_deleteProject(EN_Project p)
-{
+{   
+    scope(exit) termRT();
     (cast(Project)p).destroy();
     return 0;
 }
