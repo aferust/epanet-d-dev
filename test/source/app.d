@@ -7,7 +7,7 @@ import epanet.epanet3;
 import std.stdio;
 
 void main() {
-    //EN_runEpanet("net1.inp", "out1", "out2");
+    //EN_runEpanet("Net2.inp", "out1", "out2");
     
     int err;
     Project p = new Project();
