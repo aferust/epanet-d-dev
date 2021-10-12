@@ -18,7 +18,7 @@ import epanet.core.constants;
 import epanet.core.error;
 import epanet.utilities.utilities;
 
-extern (C):
+
 
 alias EN_Project = void*;
 
@@ -50,6 +50,8 @@ private {
         }
     }
 }
+
+extern (C):
 
 int EN_getVersion(int* enversion)
 {
