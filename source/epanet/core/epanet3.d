@@ -31,16 +31,22 @@ private {
     shared size_t initCount;
 
     void initRT(){
-        if(!atomicLoad!(MemoryOrder.acq)(initCount)){
-            Runtime.initialize();
-            atomicOp!"+="(initCount, 1);
+        version(Executable){}
+        else {
+            if(!atomicLoad!(MemoryOrder.acq)(initCount)){
+                Runtime.initialize();
+                atomicOp!"+="(initCount, 1);
+            }
         }
     }
 
     void termRT(){
-        if(atomicLoad!(MemoryOrder.acq)(initCount) > 0){
-            Runtime.terminate();
-            atomicOp!"-="(initCount, 1);
+        version(Executable){}
+        else {
+            if(atomicLoad!(MemoryOrder.acq)(initCount) > 0){
+                Runtime.terminate();
+                atomicOp!"-="(initCount, 1);
+            }
         }
     }
 }
@@ -360,4 +366,61 @@ int EN_getLinkNodes(int index, int* fromNode, int* toNode, EN_Project p)
 int EN_getLinkValue(int index, int param, double* value, EN_Project p)
 {
    return dm.getLinkValue(index, param, value, (cast(Project)p).getNetwork());
+}
+
+version (Windows){
+    version (DynamicLibrary){
+        import core.sys.windows.dll;
+        
+        mixin SimpleDllMain;
+    }
+}
+
+/*
+    with the below mixin, the export definitions are created for the dynamic library
+    in compile time.
+*/
+version (DynamicLibrary){
+    enum FunNames = [
+        "EN_getVersion",
+        "EN_runEpanet",
+        "EN_createProject",
+        "EN_deleteProject",
+        "EN_loadProject",
+        "EN_saveProject",
+        "EN_clearProject",
+        "EN_cloneProject",
+        "EN_runProject",
+        "EN_initSolver",
+        "EN_runSolver",
+        "EN_advanceSolver",
+        "EN_openOutputFile",
+        "EN_saveOutput",
+        "EN_openReportFile",
+        "EN_writeReport",
+        "EN_writeSummary",
+        "EN_writeResults",
+        "EN_writeMsgLog",
+        "EN_getCount",
+        "EN_getNodeIndex",
+        "EN_getNodeId",
+        "EN_getNodeType",
+        "EN_getNodeValue",
+        "EN_getLinkIndex",
+        "EN_getLinkId",
+        "EN_getLinkType",
+        "EN_getLinkNodes",
+        "EN_getLinkValue"
+    ];
+
+    mixin template ExportDyLib()
+    {
+        import std.string;
+        static foreach(funName; FunNames){
+            mixin("export alias EN" ~ funName.split('_')[1] ~ " = " ~ funName ~ ";");
+        }
+    }
+
+    mixin ExportDyLib;
+
 }

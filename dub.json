@@ -13,17 +13,18 @@
             "targetType": "library",
             "sourcePaths": ["source"],
             "excludedSourceFiles": ["source/epanet/cli/main.d"]
-
         },
         {
             "name": "dynamicLibrary",
             "targetType": "dynamicLibrary",
             "sourcePaths": ["source"],
-            "excludedSourceFiles": ["source/epanet/cli/main.d"]
+            "excludedSourceFiles": ["source/epanet/cli/main.d"],
+            "versions": ["DynamicLibrary"]
         },
         {
             "name": "cli",
-            "targetType": "executable"
+            "targetType": "executable",
+            "versions": ["Executable"]
         }
     ]
 }
