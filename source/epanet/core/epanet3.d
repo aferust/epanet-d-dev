@@ -415,12 +415,18 @@ version (DynamicLibrary){
 
     mixin template ExportDyLib()
     {
-        import std.string;
-        static foreach(funName; FunNames){
-            mixin("export alias EN" ~ funName.split('_')[1] ~ " = " ~ funName ~ ";");
+        import std.algorithm.searching;
+        static foreach(funName; __traits(allMembers, epanet.core.epanet3)){
+            static if(countUntil(FunNames, funName) != -1){
+                mixin(
+                "export typeof(&" ~ funName ~ ") " ~ "EN" ~ funName.split('_')[1] ~ " = &" ~ funName ~ ";"
+            );
+            //pragma(msg, "export typeof(&" ~ funName ~ ") " ~ "EN" ~ funName.split('_')[1] ~ " = &" ~ funName ~ ";");
+            }
         }
     }
-
+    
+    extern (C):
     mixin ExportDyLib;
 
 }
