@@ -53,7 +53,7 @@ private {
 
 extern (C):
 
-int EN_getVersion(int* enversion)
+export int EN_getVersion(int* enversion)
 {
     *enversion = VERSION;
     return 0;
@@ -61,7 +61,7 @@ int EN_getVersion(int* enversion)
 
 //-----------------------------------------------------------------------------
 
-int EN_runEpanet(const(char)* inpFile, const(char)* rptFile, const(char)* outFile)
+export int EN_runEpanet(const(char)* inpFile, const(char)* rptFile, const(char)* outFile)
 {
     initRT();
     scope(exit) termRT();
@@ -145,7 +145,7 @@ int EN_runEpanet(const(char)* inpFile, const(char)* rptFile, const(char)* outFil
 
 //-----------------------------------------------------------------------------
 
-EN_Project EN_createProject()
+export EN_Project EN_createProject()
 {
     initRT();
     Project p = new Project();
@@ -154,7 +154,7 @@ EN_Project EN_createProject()
 
 //-----------------------------------------------------------------------------
 
-int EN_deleteProject(EN_Project p)
+export int EN_deleteProject(EN_Project p)
 {   
     scope(exit) termRT();
     (cast(Project)p).destroy();
@@ -163,21 +163,21 @@ int EN_deleteProject(EN_Project p)
 
 //-----------------------------------------------------------------------------
 
-int EN_loadProject(const char* fname, EN_Project p)
+export int EN_loadProject(const char* fname, EN_Project p)
 {
     return (cast(Project)p).load(fname.to!string);
 }
 
 //-----------------------------------------------------------------------------
 
-int EN_saveProject(const char* fname, EN_Project p)
+export int EN_saveProject(const char* fname, EN_Project p)
 {
     return (cast(Project)p).save(fname.to!string);
 }
 
 //-----------------------------------------------------------------------------
 
-int EN_clearProject(EN_Project p)
+export int EN_clearProject(EN_Project p)
 {
     (cast(Project)p).clear();
     return 0;
@@ -188,7 +188,7 @@ int EN_clearProject(EN_Project p)
 ////////////////////////////////////////////////////////////////
 //  NOT SURE IF THIS METHOD WORKS CORRECTLY -- NEEDS TESTING  //
 ////////////////////////////////////////////////////////////////
-int EN_cloneProject(EN_Project pClone, EN_Project pSource)
+export int EN_cloneProject(EN_Project pClone, EN_Project pSource)
 {
     if ( pSource is null || pClone is null ) return 102;
     int err = 0;
@@ -221,63 +221,63 @@ int EN_cloneProject(EN_Project pClone, EN_Project pSource)
 
 //-----------------------------------------------------------------------------
 
-int EN_runProject(EN_Project p)    // <<=============  TO BE COMPLETED
+export int EN_runProject(EN_Project p)    // <<=============  TO BE COMPLETED
 {
     return 0;
 }
 
 //-----------------------------------------------------------------------------
 
-int EN_initSolver(int initFlows, EN_Project p)
+export int EN_initSolver(int initFlows, EN_Project p)
 {
     return (cast(Project)p).initSolver(cast(bool)initFlows);
 }
 
 //-----------------------------------------------------------------------------
 
-int EN_runSolver(int* t, EN_Project p)
+export int EN_runSolver(int* t, EN_Project p)
 {
     return (cast(Project)p).runSolver(t);
 }
 
 //-----------------------------------------------------------------------------
 
-int EN_advanceSolver(int *dt, EN_Project p)
+export int EN_advanceSolver(int *dt, EN_Project p)
 {
     return (cast(Project)p).advanceSolver(dt);
 }
 
 //-----------------------------------------------------------------------------
 
-int EN_openOutputFile(const char* fname, EN_Project p)
+export int EN_openOutputFile(const char* fname, EN_Project p)
 {
     return (cast(Project)p).openOutput(fname.to!string);
 }
 
 //-----------------------------------------------------------------------------
 
-int EN_saveOutput(EN_Project p)
+export int EN_saveOutput(EN_Project p)
 {
     return (cast(Project)p).saveOutput();
 }
 
 //-----------------------------------------------------------------------------
 
-int EN_openReportFile(const char* fname, EN_Project p)
+export int EN_openReportFile(const char* fname, EN_Project p)
 {
     return (cast(Project)p).openReport(fname.to!string);
 }
 
 //-----------------------------------------------------------------------------
 
-int EN_writeReport(EN_Project p)
+export int EN_writeReport(EN_Project p)
 {
     return (cast(Project)p).writeReport();
 }
 
 //-----------------------------------------------------------------------------
 
-int EN_writeSummary(EN_Project p)
+export int EN_writeSummary(EN_Project p)
 {
     (cast(Project)p).writeSummary();
     return 0;
@@ -285,7 +285,7 @@ int EN_writeSummary(EN_Project p)
 
 //-----------------------------------------------------------------------------
 
-int EN_writeResults(int t, EN_Project p)
+export int EN_writeResults(int t, EN_Project p)
 {
     (cast(Project)p).writeResults(t);
     return 0;
@@ -293,7 +293,7 @@ int EN_writeResults(int t, EN_Project p)
 
 //-----------------------------------------------------------------------------
 
-int EN_writeMsgLog(EN_Project p)
+export int EN_writeMsgLog(EN_Project p)
 {
     (cast(Project)p).writeMsgLog();
     return 0;
@@ -301,63 +301,63 @@ int EN_writeMsgLog(EN_Project p)
 
 //-----------------------------------------------------------------------------
 
-int EN_getCount(int element, int* result, EN_Project p)
+export int EN_getCount(int element, int* result, EN_Project p)
 {
     return dm.getCount(element, result, (cast(Project)p).getNetwork());
 }
 
 //-----------------------------------------------------------------------------
 
-int EN_getNodeIndex(char* name, int* index, EN_Project p)
+export int EN_getNodeIndex(char* name, int* index, EN_Project p)
 {
     return dm.getNodeIndex(name.to!string, index, (cast(Project)p).getNetwork());
 }
 
 //-----------------------------------------------------------------------------
 
-int EN_getNodeId(int index, char* id, EN_Project p)
+export int EN_getNodeId(int index, char* id, EN_Project p)
 {
     return dm.getNodeId(index, id.to!string, (cast(Project)p).getNetwork());
 }
 
 //-----------------------------------------------------------------------------
 
-int EN_getNodeType(int index, int* type, EN_Project p)
+export int EN_getNodeType(int index, int* type, EN_Project p)
 {
     return dm.getNodeType(index, type, (cast(Project)p).getNetwork());
 }
 
 //-----------------------------------------------------------------------------
 
-int EN_getNodeValue(int index, int param, double* value, EN_Project p)
+export int EN_getNodeValue(int index, int param, double* value, EN_Project p)
 {
     return dm.getNodeValue(index, param, value, (cast(Project)p).getNetwork());
 }
 
 //-----------------------------------------------------------------------------
 
-int EN_getLinkIndex(char* name, int* index, EN_Project p)
+export int EN_getLinkIndex(char* name, int* index, EN_Project p)
 {
     return dm.getLinkIndex(name.to!string, index, (cast(Project)p).getNetwork());
 }
 
 //-----------------------------------------------------------------------------
 
-int EN_getLinkId(int index, char* id, EN_Project p)
+export int EN_getLinkId(int index, char* id, EN_Project p)
 {
     return dm.getLinkId(index, id.to!string, (cast(Project)p).getNetwork());
 }
 
 //-----------------------------------------------------------------------------
 
-int EN_getLinkType(int index, int* type, EN_Project p)
+export int EN_getLinkType(int index, int* type, EN_Project p)
 {
     return dm.getLinkType(index, type, (cast(Project)p).getNetwork());
 }
 
 //-----------------------------------------------------------------------------
 
-int EN_getLinkNodes(int index, int* fromNode, int* toNode, EN_Project p)
+export int EN_getLinkNodes(int index, int* fromNode, int* toNode, EN_Project p)
 {
     return dm.getLinkNodes(index, fromNode, toNode,
                                      (cast(Project)p).getNetwork());
@@ -365,7 +365,7 @@ int EN_getLinkNodes(int index, int* fromNode, int* toNode, EN_Project p)
 
 //-----------------------------------------------------------------------------
 
-int EN_getLinkValue(int index, int param, double* value, EN_Project p)
+export int EN_getLinkValue(int index, int param, double* value, EN_Project p)
 {
    return dm.getLinkValue(index, param, value, (cast(Project)p).getNetwork());
 }
@@ -376,59 +376,4 @@ version (Windows){
         
         mixin SimpleDllMain;
     }
-}
-
-/*
-    with the below mixin, the export definitions are created for the dynamic library
-    in compile time.
-*/
-version (DynamicLibrary){
-    enum FunNames = [
-        "EN_getVersion",
-        "EN_runEpanet",
-        "EN_createProject",
-        "EN_deleteProject",
-        "EN_loadProject",
-        "EN_saveProject",
-        "EN_clearProject",
-        "EN_cloneProject",
-        "EN_runProject",
-        "EN_initSolver",
-        "EN_runSolver",
-        "EN_advanceSolver",
-        "EN_openOutputFile",
-        "EN_saveOutput",
-        "EN_openReportFile",
-        "EN_writeReport",
-        "EN_writeSummary",
-        "EN_writeResults",
-        "EN_writeMsgLog",
-        "EN_getCount",
-        "EN_getNodeIndex",
-        "EN_getNodeId",
-        "EN_getNodeType",
-        "EN_getNodeValue",
-        "EN_getLinkIndex",
-        "EN_getLinkId",
-        "EN_getLinkType",
-        "EN_getLinkNodes",
-        "EN_getLinkValue"
-    ];
-
-    mixin template ExportDyLib()
-    {
-        import std.algorithm.searching;
-        static foreach(funName; __traits(allMembers, epanet.core.epanet3)){
-            static if(countUntil(FunNames, funName) != -1){
-                mixin(
-                "export typeof(&" ~ funName ~ ") " ~ "EN" ~ funName.split('_')[1] ~ " = &" ~ funName ~ ";"
-            );
-            //pragma(msg, "export typeof(&" ~ funName ~ ") " ~ "EN" ~ funName.split('_')[1] ~ " = &" ~ funName ~ ";");
-            }
-        }
-    }
-    
-    extern (C):
-    mixin ExportDyLib;
-
 }
