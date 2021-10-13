@@ -317,7 +317,11 @@ export int EN_getNodeIndex(char* name, int* index, EN_Project p)
 
 export int EN_getNodeId(int index, char* id, EN_Project p)
 {
-    return dm.getNodeId(index, id.to!string, (cast(Project)p).getNetwork());
+    string buff;
+    auto ret = dm.getNodeId(index, buff, (cast(Project)p).getNetwork());
+    buff ~= '\0';
+    id = cast(char*)buff.ptr;
+    return ret;
 }
 
 //-----------------------------------------------------------------------------
@@ -345,7 +349,11 @@ export int EN_getLinkIndex(char* name, int* index, EN_Project p)
 
 export int EN_getLinkId(int index, char* id, EN_Project p)
 {
-    return dm.getLinkId(index, id.to!string, (cast(Project)p).getNetwork());
+    string buff;
+    auto ret = dm.getLinkId(index, id.to!string, (cast(Project)p).getNetwork());
+    buff ~= '\0';
+    id = cast(char*)buff.ptr;
+    return ret;
 }
 
 //-----------------------------------------------------------------------------
