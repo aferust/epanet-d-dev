@@ -149,7 +149,7 @@ export EN_Project EN_createProject()
 {
     initRT();
     Project p = new Project();
-    return cast(EN_Project *)p;
+    return cast(EN_Project)p;
 }
 
 //-----------------------------------------------------------------------------
