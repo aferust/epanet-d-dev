@@ -12,22 +12,20 @@ sys.path.append(this_dir)
 
 _plat= platform.system()
 if _plat=='Linux':
-  _lib = CDLL("libepanet3.so.2")
+    _lib = CDLL("libepanet3.so.2")
 elif _plat=='Windows':
-  try:
-    # if epanet2.dll compiled with __cdecl (as in OpenWaterAnalytics)
-    _lib = CDLL(os.path.join(this_dir, "epamodule3", "epanet3.dll"))
-  except ValueError:
-     # if epanet2.dll compiled with __stdcall (as in EPA original DLL)
-     try:
-       _lib = windll.epanet3
-       _lib.ENgetversion(byref(c_int()))
-     except ValueError:
-       raise Exception("epanet3.dll not suitable")
+    try:
+        _lib = CDLL(os.path.join(this_dir, "epamodule3", "epanet3.dll"))
+    except ValueError:
+        try:
+            _lib = windll.epanet3
+            _lib.EN_getVersion(byref(c_int()))
+        except ValueError:
+            raise Exception("epanet3.dll not suitable")
 elif _plat=='Darwin':
     _lib = CDLL(os.path.join(this_dir, "epamodule3", "libepanet3.dylib"))
 else:
-  Exception('Platform '+ _plat +' unsupported (not yet)')
+    Exception('Platform '+ _plat +' unsupported (not yet)')
 
 
 _max_label_len= 32
