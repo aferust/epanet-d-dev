@@ -21,7 +21,7 @@ while True:
     t = ENrunSolver(prjHandle)
     err = ENwriteMsgLog(prjHandle)
     tstep = ENadvanceSolver(prjHandle)
-    if (tstep == 0 or err == 0): break
+    if (tstep == 0 and err == 0): break
 
 err = ENwriteReport(prjHandle)
 
