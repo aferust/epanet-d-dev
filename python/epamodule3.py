@@ -166,11 +166,9 @@ def ENgetNodeIndex(name, handle):
 
 def ENgetNodeId(index, handle):
     func = _lib.EN_getNodeId
-    func.argtypes = [c_int, c_char_p, c_void_p]
-    func.restype = c_long
     id = create_string_buffer(_max_label_len)
-    err = func(index, byref(id), handle)
-    return id
+    err = func(index, byref(id), cast(handle, c_char_p))
+    return id.value
 
 def ENgetNodeType(index, handle):
     func = _lib.EN_getNodeType
@@ -196,13 +194,11 @@ def ENgetLinkIndex(name, handle):
     err = func(c_char_p(name.encode()), byref(val), handle)
     return val.value
     
-def ENgetLinkId(index, id, handle):
+def ENgetLinkId(index, handle):
     func = _lib.EN_getLinkId
-    func.argtypes = [c_int, c_char_p, c_void_p]
-    func.restype = c_long
-    label = create_string_buffer(_max_label_len)
-    err = func(index, byref(label), handle)
-    return label
+    id = create_string_buffer(_max_label_len)
+    err = func(index, byref(id), cast(handle, c_char_p))
+    return id.value
     
 def ENgetLinkType(index, handle):
     func = _lib.EN_getLinkType
