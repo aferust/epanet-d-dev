@@ -321,7 +321,7 @@ export int EN_getNodeId(int index, char* id, EN_Project p)
 
     string buff;
     auto ret = dm.getNodeId(index, buff, (cast(Project)p).getNetwork());
-    memcpy(id, cast(char*)buff.toStringz, buff.length + 1);
+    memcpy(id, buff.toStringz, buff.length + 1);
     return ret;
 }
 
@@ -354,7 +354,7 @@ export int EN_getLinkId(int index, char* id, EN_Project p)
 
     string buff;
     auto ret = dm.getLinkId(index, buff, (cast(Project)p).getNetwork());
-    memcpy(id, cast(char*)buff.toStringz, buff.length + 1);
+    memcpy(id, buff.toStringz, buff.length + 1);
     return ret;
 }
 
