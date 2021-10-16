@@ -154,7 +154,7 @@ def ENgetCount(element, handle):
     func.restype = c_long
     _count = c_int()
     func(element, byref(_count), handle)
-    return count.value
+    return _count.value
 
 def ENgetNodeIndex(name, handle):
     func = _lib.EN_getNodeIndex
