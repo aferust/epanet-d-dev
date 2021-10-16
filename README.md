@@ -48,3 +48,5 @@ int main() {
    return 0;
 }
 ```
+
+The dynamic library can also be loaded instead of static linking. Take a look at the python folder.
