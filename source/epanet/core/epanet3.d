@@ -317,11 +317,9 @@ export int EN_getNodeIndex(char* name, int* index, EN_Project p)
 
 export int EN_getNodeId(int index, char* id, EN_Project p)
 {
-    import core.stdc.string: memcpy;
-
     string buff;
     auto ret = dm.getNodeId(index, buff, (cast(Project)p).getNetwork());
-    memcpy(id, buff.toStringz, buff.length + 1);
+    id[0..buff.length + 1] = buff.toStringz[0..buff.length + 1];
     return ret;
 }
 
@@ -350,11 +348,9 @@ export int EN_getLinkIndex(char* name, int* index, EN_Project p)
 
 export int EN_getLinkId(int index, char* id, EN_Project p)
 {
-    import core.stdc.string: memcpy;
-
     string buff;
     auto ret = dm.getLinkId(index, buff, (cast(Project)p).getNetwork());
-    memcpy(id, buff.toStringz, buff.length + 1);
+    id[0..buff.length + 1] = buff.toStringz[0..buff.length + 1];
     return ret;
 }
 
