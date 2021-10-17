@@ -37,11 +37,12 @@ class Utilities
             int rtnValue = GetTempFileNameW(dir.wtext.ptr, ("EN"w).ptr, 0, path.ptr);
             if ( rtnValue > 0 ) fname = path[0 .. wcslen(path.ptr)].text;
         } else {
-            
+            import std.conv;
             string tmpName = "/tmp/epanetXXXXXX";
-            int fd = mkstemp(tmpName.ptr);
+            char* tmpN = cast(char*)tmpName.dup;
+            int fd = mkstemp(tmpN);
             if ( fd == -1 ) return false;
-            fname = tmpName;
+            fname = tmpN.to!string;
         }
 
         return true;
