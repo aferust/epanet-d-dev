@@ -3,7 +3,7 @@ The d code was ported from [the original C++ implementation](https://github.com/
  * Why dlang? Because to better achieve the goals defined as "the code to be more modular, extensible, and easier to maintain", I think dlang is superior to C++ in many ways.
  * I would happily transfer the ownership of the repo to OpenWaterAnalytics on request.
  * The example inp [files](https://github.com/OpenWaterAnalytics/EPANET/blob/dev/example-networks/) were successfully tested
- * The output binary file generation must be tested. It is probably buggy.
+ * The output binary file generation must be tested (The Link and Node results seems fine in terms of both reading and writing).
 
 ## Dependencies
  * only the d standard library phobos.
