@@ -336,6 +336,7 @@ class ReportWriter
     }
 
     void writeLinkResults(Link link, float* x){
+        sout.write("  ");
         sout.write(leftJustify(link.name, 24, ' '));
 
         sout.write(rightJustify(format("%.2f", x[0]), 12, ' '));
@@ -382,6 +383,7 @@ class ReportWriter
     }
 
     void writeNodeResults(Node node, float* x){
+        sout.write("  ");
         sout.write(leftJustify(node.name, 24, ' '));
         
         
