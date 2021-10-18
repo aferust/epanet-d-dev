@@ -255,27 +255,23 @@ class OutputFile
     void skipLinkResults(){
         freader.seek(linkCount*linkResults.sizeof, SEEK_CUR);
     }
-
-    //friend ReportWriter;
-    float[NumPumpVars]         pumpResults; //!< array of pump results
-    int           timePeriodCount;          //!< number of time periods written
-    int           pumpCount;                //!< number of pump links
-    float[NumNodeVars]         nodeResults; //!< array of node results
-    float[NumLinkVars]         linkResults; //!< array of link results
-    int           reportStep;               //!< time between reporting periods (sec)
-    int           reportStart;              //!< time when reporting starts (sec)
     
-  private:
+  package:
     string        fname;                    //!< name of binary output file
     File          fwriter;                  //!< output file stream.
     File          freader;                  //!< file input stream
     Network      network;                  //!< associated network
     int           nodeCount;                //!< number of network nodes
     int           linkCount;                //!< number of network links
-    
+    int           pumpCount;                //!< number of pump links
+    int           timePeriodCount;          //!< number of time periods written
+    int           reportStep;               //!< time between reporting periods (sec)
+    int           reportStart;              //!< time when reporting starts (sec)
     int           energyResultsOffset;      //!< offset for pump energy results
     int           networkResultsOffset;     //!< offset for extended period results
-    
+    float[NumNodeVars]         nodeResults; //!< array of node results
+    float[NumLinkVars]         linkResults; //!< array of link results
+    float[NumPumpVars]         pumpResults; //!< array of pump results
     
     void writeNodeResults(){
         //if ( fwriter.fail() ) return;

@@ -340,7 +340,7 @@ class Network
     LeakageModel            leakageModel;  //!< pipe leakage model
     QualModel               qualModel;     //!< water quality model
 
-  //private:
+package:
 
     // Hash tables that associate an element's ID name with its storage index.
     Element[string]      nodeTable;     //!< hash table for node ID names.
