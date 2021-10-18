@@ -220,7 +220,7 @@ def ENgetLinkValue(index, param, handle):
     func.argtypes = [c_int, c_int, POINTER(c_double), c_void_p]
     func.restype = c_long
     val = c_double()
-    err = func(index, param, val, handle)
+    err = func(index, param, byref(val), handle)
     return val.value
 
 #-----end of functions added from OpenWaterAnalytics ----------------------------------
