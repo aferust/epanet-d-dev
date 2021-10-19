@@ -61,7 +61,7 @@ export int EN_getVersion(int* enversion)
 
 //-----------------------------------------------------------------------------
 
-export int EN_runEpanet(const(char)* inpFile, const(char)* rptFile, const(char)* outFile)
+export int EN_runEpanet(const char* inpFile, const char* rptFile, const char* outFile)
 {
     initRT();
     scope(exit) termRT();
