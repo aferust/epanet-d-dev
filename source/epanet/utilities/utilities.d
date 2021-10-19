@@ -8,10 +8,6 @@ module epanet.utilities.utilities;
 
 import std.algorithm.comparison: equal;
 
-version (Windows){} else {
-    extern (C) int mkstemp(char*);
-}
-
 enum s_Day     = "DAY";
 enum s_Hour    = "HOUR";
 enum  s_Minute = "MIN";
@@ -37,12 +33,13 @@ class Utilities
             int rtnValue = GetTempFileNameW(dir.wtext.ptr, ("EN"w).ptr, 0, path.ptr);
             if ( rtnValue > 0 ) fname = path[0 .. wcslen(path.ptr)].text;
         } else {
-            import std.conv;
-            string tmpName = "/tmp/epanetXXXXXX";
-            char* tmpN = cast(char*)tmpName.dup;
-            int fd = mkstemp(tmpN);
+            import std.conv: to;
+            import core.sys.posix.stdlib: mkstemp;
+
+            char[] tmpName = "/tmp/epanetXXXXXX\0".dup;
+            const fd = mkstemp(tmpName.ptr);
             if ( fd == -1 ) return false;
-            fname = tmpN.to!string;
+            fname = tmpName.to!string;
         }
 
         return true;
