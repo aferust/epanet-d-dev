@@ -32,6 +32,7 @@ class Utilities
             string dir = tempDir();
             int rtnValue = GetTempFileNameW(dir.wtext.ptr, ("EN"w).ptr, 0, path.ptr);
             if ( rtnValue > 0 ) fname = path[0 .. wcslen(path.ptr)].text;
+            else return false;
         } else {
             import std.conv: to;
             import core.sys.posix.stdlib: mkstemp;
