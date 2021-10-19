@@ -338,17 +338,17 @@ class Project
     }
     Network getNetwork() { return network; }
 
-    private:
+    package:
 
     Network        network;        //!< pipe network to be analyzed.
     HydEngine      hydEngine;      //!< hydraulic simulation engine.
     QualEngine     qualEngine;     //!< water quality simulation engine.
     OutputFile     outputFile;     //!< binary output file for saved results.
-    string    inpFileName;    //!< name of project's input file.
-    string    outFileName;    //!< name of project's binary output file.
-    string    tmpFileName;    //!< name of project's temporary binary output file.
-    string    rptFileName;    //!< name of project's report file.
-    File  rptFile;        //!< reporting file stream.
+    string         inpFileName;    //!< name of project's input file.
+    string         outFileName;    //!< name of project's binary output file.
+    string         tmpFileName;    //!< name of project's temporary binary output file.
+    string         rptFileName;    //!< name of project's report file.
+    File           rptFile;        //!< reporting file stream.
 
     // Project status conditions
     bool           networkEmpty;

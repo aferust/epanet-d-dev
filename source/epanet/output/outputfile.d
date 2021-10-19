@@ -260,7 +260,7 @@ class OutputFile
     string        fname;                    //!< name of binary output file
     File          fwriter;                  //!< output file stream.
     File          freader;                  //!< file input stream
-    Network      network;                  //!< associated network
+    Network       network;                  //!< associated network
     int           nodeCount;                //!< number of network nodes
     int           linkCount;                //!< number of network links
     int           pumpCount;                //!< number of pump links
