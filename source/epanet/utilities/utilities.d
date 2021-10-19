@@ -30,7 +30,7 @@ class Utilities
 
             wchar[] path = new wchar[MAX_PATH+1];
             string dir = tempDir();
-            int rtnValue = GetTempFileNameW(dir.wtext.ptr, ("EN"w).ptr, 0, path.ptr);
+            const rtnValue = GetTempFileNameW(dir.wtext.ptr, ("EN"w).ptr, 0, path.ptr);
             if ( rtnValue > 0 ) fname = path[0 .. wcslen(path.ptr)].text;
             else return false;
         } else {
